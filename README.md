@@ -1,6 +1,3 @@
-### `README.md` (中文版)
-
-```markdown
 # SparkAPI Go 客户端
 
 一个用于与讯飞星火认知大模型SparkAPI 交互的 Go 客户端库。
@@ -10,7 +7,7 @@
 要使用 SparkAPI 客户端库，请首先使用 `go get` 命令进行安装：
 
 ```bash
-go get github.com/huiyanghu12/sparkapi
+go get github.com/fruitbars/sparkapi
 ```
 
 请将 `your_username` 替换为您的 GitHub 用户名。
@@ -23,7 +20,7 @@ go get github.com/huiyanghu12/sparkapi
 package main
 
 import (
-    "github.com/your_username/sparkapi"
+    "github.com/fruitbars/sparkapi"
     "log"
 )
 
@@ -63,6 +60,3 @@ SparkAPI 客户端库中可用的函数包括：
 ## 许可证
 
 此库根据 MIT 许可证分发，请查看 LICENSE 获取更多信息。
-```
-
-创建 `README.md` 文件时，请确保指示清晰，并且任何具有 Go 和 API 基础知识的用户都能够按照指示安装和使用您的模块。您可能需要将占位符值如 `your_username`、`your_app_id`、`your_api_key` 和 `your_api_secret` 更新为真实值或关于用户可以在何处获得这些值的说明。
