@@ -10,8 +10,6 @@
 go get github.com/fruitbars/sparkapi
 ```
 
-请将 `your_username` 替换为您的 GitHub 用户名。
-
 ## 使用方法
 
 以下是使用此库的一个简单例子：
