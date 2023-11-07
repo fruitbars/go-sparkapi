@@ -1,4 +1,4 @@
-module github.com/huiyanghu12/go-sparkapi
+module github.com/fruitbars/go-sparkapi
 
 go 1.21.3
 
