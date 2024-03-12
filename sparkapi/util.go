@@ -13,7 +13,6 @@ import (
 	"time"
 )
 
-// AssembleAuthURL creates the authenticated URL for the WebSocket connection.
 func AssembleAuthURL(httpMethod string, hostURL, apiKey, apiSecret string) string {
 	ul, err := url.Parse(hostURL)
 	if err != nil {
@@ -32,7 +31,6 @@ func AssembleAuthURL(httpMethod string, hostURL, apiKey, apiSecret string) strin
 	return hostURL + "?" + v.Encode()
 }
 
-// HmacWithShaToBase64 computes HMAC with SHA-256 and returns the result in base64 encoding.
 func HmacWithShaToBase64(algorithm, data, key string) string {
 	mac := hmac.New(sha256.New, []byte(key))
 	mac.Write([]byte(data))
@@ -40,7 +38,6 @@ func HmacWithShaToBase64(algorithm, data, key string) string {
 	return base64.StdEncoding.EncodeToString(encodedData)
 }
 
-// readResp reads the HTTP response and returns a formatted string.
 func readResp(resp *http.Response) string {
 	if resp == nil {
 		return ""

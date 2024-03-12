@@ -7,7 +7,7 @@
 要使用 SparkAPI 客户端库，请首先使用 `go get` 命令进行安装：
 
 ```bash
-go get github.com/fruitbars/sparkapi
+go get github.com/fruitbars/go-sparkapi
 ```
 
 ## 使用方法
@@ -18,7 +18,7 @@ go get github.com/fruitbars/sparkapi
 package main
 
 import (
-    "github.com/fruitbars/sparkapi"
+    "github.com/fruitbars/go-sparkapi"
     "log"
 )
 
