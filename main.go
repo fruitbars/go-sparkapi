@@ -11,16 +11,18 @@ func main() {
 	// 创建一个日志记录器
 	logger := log.New(os.Stdout, "SPARKAPI: ", log.LstdFlags)
 
+	testURL := ""
+	testDomain := ""
 	// 创建一个 SparkClient 实例
-	client := sparkapi.NewSparkClient("yourAppID", "yourAPIKey", "yourAPISecret", logger, "", "")
+	client := sparkapi.NewSparkClient("5ddb517c", "a82640492231a85e496887ccd0d4856f", "b13daf2b954ea8f524aab17d6fd595ce", logger, testURL, testDomain)
 
 	// 调用 SparkAPI
-	prompt := "Hello, world!"
-	temperature := 0.7
-	topk := 5
-	maxtokens := 100
-	version := "v1"
-	system := "test system"
+	prompt := "天空是什么颜色的呢？"
+	temperature := 0.5
+	topk := 4
+	maxtokens := 8192
+	version := "v3.5"
+	system := ""
 
 	response, err := client.CallSpark(prompt, temperature, topk, maxtokens, version, system)
 	if err != nil {

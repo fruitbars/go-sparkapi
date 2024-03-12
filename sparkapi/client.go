@@ -2,7 +2,6 @@ package sparkapi
 
 import (
 	"encoding/json"
-	"github.com/fruitbars/go-sparkapi"
 	"github.com/gorilla/websocket"
 	"log"
 	"time"
@@ -31,12 +30,12 @@ func NewSparkClient(appID, apiKey, apiSecret string, logger *log.Logger, baseURL
 func (c *SparkClient) CallSpark(prompt string, temperature float64, topk int, maxtokens int, version string, system string) (string, error) {
 	urlstring := c.BaseURL
 	if urlstring == "" {
-		urlstring = sparkapi.getHostURL(version)
+		urlstring = getHostURL(version)
 	}
 
 	domain := c.Domain
 	if domain == "" {
-		domain = sparkapi.getDefaultDomain(version)
+		domain = getDefaultDomain(version)
 	}
 
 	d := websocket.Dialer{
@@ -47,17 +46,17 @@ func (c *SparkClient) CallSpark(prompt string, temperature float64, topk int, ma
 	c.Logger.Println(authURL)
 	conn, resp, err := d.Dial(authURL, nil)
 	if err != nil {
-		c.Logger.Printf("Failed to establish WebSocket connection: %v, %s, %s\n", err, sparkapi.readResp(resp), authURL)
+		c.Logger.Printf("Failed to establish WebSocket connection: %v, %s, %s\n", err, readResp(resp), authURL)
 		return "", err
 	}
 	defer conn.Close()
 
 	if resp.StatusCode != 101 {
-		c.Logger.Fatalf("WebSocket handshake failed: %s", sparkapi.readResp(resp))
+		c.Logger.Fatalf("WebSocket handshake failed: %s", readResp(resp))
 		return "", err
 	}
 
-	data := sparkapi.genReqJson(c.AppID, prompt, temperature, topk, maxtokens, version, system, domain)
+	data := genReqJson(c.AppID, prompt, temperature, topk, maxtokens, version, system, domain)
 
 	if err := conn.WriteJSON(data); err != nil {
 		c.Logger.Printf("Failed to send message: %v\n", err)
@@ -88,7 +87,11 @@ func (c *SparkClient) CallSpark(prompt string, temperature float64, topk int, ma
 			return response.Header.Message, err
 		}
 
-		answer += response.Payload.Choices.Text[0].Content
+		if len(response.Payload.Choices.Text) > 0 {
+			answer += response.Payload.Choices.Text[0].Content
+		} else {
+			c.Logger.Println("Warning: Received empty text array in response")
+		}
 
 		if response.Payload.Choices.Status == 2 {
 			if response.Payload.Choices.Text[0].FunctionCall.Arguments != "" {

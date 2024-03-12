@@ -2,6 +2,13 @@
 
 一个用于与讯飞星火认知大模型SparkAPI 交互的 Go 客户端库。
 
+## 功能特性
+
+- 支持讯飞星火大模型 API 的基本调用
+- 支持自定义 API 地址和域名参数
+- 支持 WebSocket 协议的安全通信 (wss)
+- 支持讯飞星火大模型的 v1、v2、v3 和v3.5版本
+
 ## 安装
 
 要使用 SparkAPI 客户端库，请首先使用 `go get` 命令进行安装：
@@ -18,38 +25,40 @@ go get github.com/fruitbars/go-sparkapi
 package main
 
 import (
-    "github.com/fruitbars/go-sparkapi"
-    "log"
+	"log"
+	"os"
+
+	"github.com/fruitbars/go-sparkapi/sparkapi" // 替换为你的模块路径
 )
 
 func main() {
-    // 设置您的凭证和您要发送的消息
-    appID := "your_app_id"
-    apiKey := "your_api_key"
-    apiSecret := "your_api_secret"
-    prompt := "你好，世界！"
+	// 创建一个日志记录器
+	logger := log.New(os.Stdout, "SPARKAPI: ", log.LstdFlags)
 
-    // 初始化客户端
-    client := sparkapi.NewClient(appID, apiKey, apiSecret)
+	// 创建一个 SparkClient 实例
+	client := sparkapi.NewSparkClient("yourAppID", "yourAPIKey", "yourAPISecret", logger, "", "")
 
-    // 调用 API
-    response, err := client.CallSpark(prompt, 0.5, 5, 150, "v1", "")
-    if err != nil {
-        log.Fatalf("CallSpark 调用失败: %v", err)
-    }
+	// 调用 SparkAPI
+	prompt := "Hello, world!"
+	temperature := 0.5
+	topk := 4
+	maxtokens := 8192
+	version := "v3.5"
+	system := ""
 
-    log.Printf("响应: %s", response)
+	response, err := client.CallSpark(prompt, temperature, topk, maxtokens, version, system)
+	if err != nil {
+		logger.Fatalf("Failed to call SparkAPI: %v", err)
+	}
+
+	// 输出响应
+	logger.Printf("Response from SparkAPI: %s", response)
 }
 ```
 
 记得将 `your_app_id`、`your_api_key` 和 `your_api_secret` 替换为您实际的 SparkAPI 凭证。
 
-## 文档
-
-SparkAPI 客户端库中可用的函数包括：
-
-- `NewClient(appID, apiKey, apiSecret string) *SparkAPIClient`：创建一个新的 SparkAPIClient 实例的构造函数。
-- `(*SparkAPIClient) CallSpark(prompt string, temperature float64, topk int, maxtokens int, version string, system string) (string, error)`：使用指定的参数调用 SparkAPI 并返回响应。
+更多关于讯飞星火大模型 API 的信息，请参考 [星火认知大模型 Web API 文档](https://www.xfyun.cn/doc/spark/Web.html)。
 
 ## 贡献
 

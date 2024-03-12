@@ -39,6 +39,8 @@ func getHostURL(version string) string {
 		return "wss://spark-api.xf-yun.com/v2.1/chat"
 	case "v3":
 		return "wss://spark-api.xf-yun.com/v3.1/chat"
+	case "v3.5":
+		return "wss://spark-api.xf-yun.com/v3.5/chat"
 	default:
 		return ""
 	}
@@ -52,6 +54,8 @@ func getDefaultDomain(version string) string {
 		return "generalv2"
 	case "v3":
 		return "generalv3"
+	case "v3.5":
+		return "generalv3.5"
 	default:
 		return ""
 	}
