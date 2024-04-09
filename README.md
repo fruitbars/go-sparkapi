@@ -19,6 +19,14 @@ go get github.com/fruitbars/go-sparkapi
 
 ## 使用方法
 
+首先需要创建一个记得创建一个 `.env`文件，填写如下配置信息：
+```env
+SPARKAI_URL=wss://spark-api.xf-yun.com/v3.5/chat
+SPARKAI_APP_ID=xxx
+SPARKAI_API_KEY=xxx
+SPARKAI_API_SECRET=xxx
+SPARKAI_DOMAIN=generalv3.5
+```
 以下是使用此库的一个简单例子：
 
 ```go
@@ -61,7 +69,7 @@ func main() {
 
 ```
 
-记得将 `your_app_id`、`your_api_key` 和 `your_api_secret` 填写在.env文件中。
+
 
 更多关于讯飞星火大模型 API 的信息，请参考 [星火认知大模型 Web API 文档](https://www.xfyun.cn/doc/spark/Web.html)。
 
