@@ -12,13 +12,11 @@ import (
 )
 
 const (
-	AppIdEnvVarName        = "SPARKAI_APP_ID"     //nolint:gosec
-	ApiKeyEnvVarName       = "SPARKAI_API_KEY"    //nolint:gosec
-	ApiSecretEnvVarName    = "SPARKAI_API_SECRET" //nolint:gosec
-	SparkDomainEnvVarName  = "SPARKAI_DOMAIN"
-	sparkVersionEnvVarName = "SPARKAI_API_VERSION" //nolint:gosec
-	BaseURLEnvVarName      = "SPARKAI_URL"         //nolint:gosec
-	organizationEnvVarName = "SPARK_ORGANIZATION"  //nolint:gosec
+	AppIdEnvVarName       = "SPARKAI_APP_ID"     //nolint:gosec
+	ApiKeyEnvVarName      = "SPARKAI_API_KEY"    //nolint:gosec
+	ApiSecretEnvVarName   = "SPARKAI_API_SECRET" //nolint:gosec
+	SparkDomainEnvVarName = "SPARKAI_DOMAIN"
+	BaseURLEnvVarName     = "SPARKAI_URL" //nolint:gosec
 )
 
 var (
@@ -43,12 +41,12 @@ func init() {
 }
 
 type SparkChatRequest struct {
-	prompt       string
-	temperature  float64
-	topk         int64
-	maxtokens    int64
-	system       string
-	questionType string
+	Prompt       string
+	Temperature  float64
+	Topk         int64
+	Maxtokens    int64
+	System       string
+	QuestionType string
 }
 
 func SparkChatWithCallback(req SparkChatRequest, callback func(messages.ChatMessage) error) (messages.ChatMessage, error) {
@@ -63,12 +61,12 @@ func SparkChatWithCallback(req SparkChatRequest, callback func(messages.ChatMess
 		Messages: []messages.ChatMessage{
 			&messages.GenericChatMessage{
 				Role:    "user",
-				Content: req.prompt,
+				Content: req.Prompt,
 			},
 		},
-		TopK:        &req.topk,
-		Temperature: &req.temperature,
-		MaxTokens:   &req.maxtokens,
+		TopK:        &req.Topk,
+		Temperature: &req.Temperature,
+		MaxTokens:   &req.Maxtokens,
 	}
 	return client.CreateChatWithCallBack(ctx, r, callback)
 }
@@ -79,14 +77,14 @@ func SparkChat(req SparkChatRequest) (messages.ChatMessage, error) {
 
 func SparkChatSimple(prompt string) (messages.ChatMessage, error) {
 	req := SparkChatRequest{
-		prompt: prompt,
+		Prompt: prompt,
 	}
 	return SparkChatWithCallback(req, nil)
 }
 
 func SparkChatSimpleWithCallback(prompt string, callback func(messages.ChatMessage) error) (messages.ChatMessage, error) {
 	req := SparkChatRequest{
-		prompt: prompt,
+		Prompt: prompt,
 	}
 	return SparkChatWithCallback(req, callback)
 }
