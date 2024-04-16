@@ -5,7 +5,7 @@ go 1.21.6
 toolchain go1.21.9
 
 require (
-	github.com/iflytek/spark-ai-go v0.0.0-20240403094231-d70de91c251b
+	github.com/iflytek/spark-ai-go v0.0.0-20240412031705-75382fe6077d
 	github.com/joho/godotenv v1.5.1
 )
 
